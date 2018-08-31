@@ -46,14 +46,14 @@ output_plan <- drake::plan_analyses(
 )
 
 # to get slack to work I had to generate a token here https://api.slack.com/custom-integrations/legacy-tokens
-slackr::slackrSetup()
+slackr::slackrSetup(channel = "#messages", incoming_webhook_url = Sys.getenv("incoming_webhook_url"), api_token = Sys.getenv("api_token"))
 
 report_plan <- drake::drake_plan(
   report = rmarkdown::render(
     knitr_in("alerts.Rmd"),
     output_file = file_out("report.html"),
     quiet = TRUE),
-  notification = slackr::slackr("A new vaccine report is ready"),
+  notification = target(slackr::slackr("A new vaccine report is ready"), trigger = trigger(change = file.info("report.html")$ctime)),
   strings_in_dots = "literals"
 )
 
@@ -70,9 +70,8 @@ whole_plan <- drake::bind_plans(
 #   make(whole_plan)
 # }
 
-drake::make(whole_plan)
+drake::make(whole_plan, cache_log_file = "cache_log.txt")
 
 # disconnect from RDS
 RMySQL::dbDisconnect(con)
-        
         

@@ -53,7 +53,7 @@ report_plan <- drake::drake_plan(
     knitr_in("alerts.Rmd"),
     output_file = file_out("report.html"),
     quiet = TRUE),
-  notification = target(slackr::slackr("A new vaccine report is ready"), trigger = trigger(change = file.info("report.html")$ctime)),
+  notification = target(slackr::slackr("A new vaccine report is ready"), trigger = drake::trigger(change = file.info("report.html")$ctime)),
   strings_in_dots = "literals"
 )
 

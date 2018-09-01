@@ -18,4 +18,5 @@ Imports:
     formattable,
     rmarkdown, 
     DBI,
-    magrittr
+    magrittr,
+    future

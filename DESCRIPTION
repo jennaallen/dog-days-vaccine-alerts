@@ -20,4 +20,5 @@ Imports:
     DBI,
     magrittr,
     future,
-    txtq
+    txtq,
+    rlang

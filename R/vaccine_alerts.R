@@ -53,7 +53,7 @@ report_plan <- drake::drake_plan(
     knitr_in("alerts.Rmd"),
     output_file = file_out("report.html"),
     quiet = TRUE),
-  notification = target(slackr::slackr("A new vaccine report is ready"), trigger = drake::trigger(change = file.info("report.html")$ctime)),
+  notification = target(slackr::slackr("A new vaccine report is ready"), trigger = drake::trigger(change = file.info(drake::knitr_in("report.html"))$ctime)),
   strings_in_dots = "literals"
 )
 
@@ -63,6 +63,7 @@ whole_plan <- drake::bind_plans(
   report_plan
 )
 
+# library(drake)
 # config <- drake_config(whole_plan)
 # vis_drake_graph(config)
 

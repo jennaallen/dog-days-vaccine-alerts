@@ -1,0 +1,15 @@
+* installing *source* package ‘test’ ...
+** R
+** byte-compile and prepare package for lazy loading
+target layla
+target lloyd
+target table_layla
+target table_lloyd
+target report
+target notification
+** help
+No man pages found in package  ‘test’ 
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (test)
